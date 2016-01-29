@@ -2,7 +2,7 @@ import json
 import unittest2 as unittest
 from py_alexa.api import IntentsSchema, intent, ResponseBuilder
 
-@intent
+@intent()
 def TestIntent(session):
     """
     ---
