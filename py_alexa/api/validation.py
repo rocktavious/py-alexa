@@ -22,7 +22,7 @@ def validate_reponse_limit(value):
     """
     value - response content
     """
-    if len(value.encode('utf-8')) > 1000 * 1000 * 24:
+    if len(value.encode('utf-8')) > 192000:
         msg = "Alexa response content is bigger then 24 kilobytes: {0}".format(value)
         raise InternalError(msg)
 
@@ -57,7 +57,7 @@ def validate_char_limit(value):
     """
     data = json.dumps(value)
     if len(data) > 8000:
-        msg = "exceeded the total character limit of 8000: {1}".format(data)
+        msg = "exceeded the total character limit of 8000: {0}".format(data)
         raise InternalError(msg)
 
 

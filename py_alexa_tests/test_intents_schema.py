@@ -1,24 +1,55 @@
 import json
 import unittest2 as unittest
-from py_alexa.api import Response_Builder
+from py_alexa.api import IntentsSchema, intent, ResponseBuilder
+
+@intent
+def TestIntent(session):
+    """
+    ---
+    test
+    """
+    return ResponseBuilder.create_response(message="Hello")
 
 
 class TestIntentsSchema(unittest.TestCase):
 
     def test_get_intent(self):
-        pass
+        self.assertEquals((TestIntent, None),
+                          IntentsSchema.get_intent("base", "TestIntent"))
 
     def test_route(self):
-        pass
+        data = {
+            'version': '',
+            'response': {
+                'outputSpeech': {
+                    'text': 'Hello',
+                    'type': 'PlainText'
+                },
+                'shouldEndSession': True
+            },
+            'sessionAttributes': {}
+        }
+        self.assertEquals(data,
+                          IntentsSchema.route({}, 'base', 'TestIntent', {}))
 
     def test_register(self):
         pass
 
     def test_generate_schema(self):
-        pass
+        data = {
+            'intents': [{
+                'intent': 'TestIntent', 'slots': []
+            }]
+        }
+        self.assertEqual(data,
+                         IntentsSchema.generate_schema())
 
     def test_generate_utterances(self):
-        pass
+        data = ['TestIntent test']
+        self.assertEqual(data,
+                         IntentsSchema.generate_utterances())
 
     def test_generate_custom_slots(self):
-        pass
+        data = []
+        self.assertEqual(data,
+                         IntentsSchema.generate_custom_slots())
