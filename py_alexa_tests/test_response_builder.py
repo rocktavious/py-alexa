@@ -3,7 +3,7 @@ import unittest2 as unittest
 from py_alexa.api import Response_Builder
 
 
-class TestValidation(unittest.TestCase):
+class TestResponseBuilder(unittest.TestCase):
 
     def test_user_facing_create_response(self):
         pass
